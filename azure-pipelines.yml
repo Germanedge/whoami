@@ -24,7 +24,7 @@ jobs:
       containerRegistry: 'germanedge-docker.artifactory'
       repository: '$(dockerId)/$(imageName)'
       command: 'buildAndPush'
-      Dockerfile: 'DOCKERFILE-WINDOWS2016'
+      Dockerfile: 'Dockerfile.windows'
       buildContext: '.'
       tags: 'latest'
         # $(Build.BuildId)'
