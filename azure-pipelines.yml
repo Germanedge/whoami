@@ -5,7 +5,7 @@
 name: "e1-whoami_$(Date:yyyyMMdd)$(Rev:.r)"
 
 variables:
-  dockerId: "germanedge-docker"  # Docker-ID for container registry service
+  dockerId: "edge-one"  # Docker-ID for container registry service
   imageName: "whoami"  # name of the image 
 
 trigger:
@@ -40,4 +40,4 @@ jobs:
       command: 'buildAndPush'
       Dockerfile: 'linux/Dockerfile'
       buildContext: '.'
-      tags: 'latest'
+      tags: latest
