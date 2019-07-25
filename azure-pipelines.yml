@@ -11,6 +11,8 @@ variables:
 trigger:
 - master
 
+pr: none
+
 jobs:
 # - job: 'CreateDockerWhoami_Windows2016'
 #   displayName: 'creates a whoami Docker for Windows 2016'
@@ -40,4 +42,6 @@ jobs:
       command: 'buildAndPush'
       Dockerfile: 'linux/Dockerfile'
       buildContext: '.'
-      tags: latest
+      tags: |
+        $(Build.BuildId)
+        latest
