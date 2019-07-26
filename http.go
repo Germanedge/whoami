@@ -18,7 +18,7 @@ func main() {
 	hostname, _ := os.Hostname()
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(os.Stdout, "I'm %s\n", hostname)
-		fmt.Fprintf(w, "I'm %s running on %s/%s\n", hostname, runtime.GOOS, runtime.GOARCH)
+		fmt.Fprintf(w, "I am %s running on %s/%s\n", hostname, runtime.GOOS, runtime.GOARCH)
 	})
 
 	log.Fatal(http.ListenAndServe(":"+port, nil))
