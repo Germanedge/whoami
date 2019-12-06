@@ -10,26 +10,13 @@ variables:
 
 trigger:
 - master
+- develop
 
 pr: none
 
 jobs:
-# - job: 'CreateDockerWhoami_Windows2016'
-#   displayName: 'creates a whoami Docker for Windows 2016'
-#   pool: 
-#     name: 'AWS'
-#   steps:
-#   - task: Docker@2
-#     displayName: 'Build and Push the image'
-#     inputs:
-#       containerRegistry: 'germanedge-docker.artifactory'
-#       repository: '$(dockerId)/$(imageName)'
-#       command: 'buildAndPush'
-#       Dockerfile: 'Dockerfile.windows'
-#       buildContext: '.'
-#       tags: 'latest'
-#         # $(Build.BuildId)'
-- job: 'DockerLinux'
+- job: 'DockerLinuxMaster'
+  condition: eq(variables['build.SourceBranchName'], 'master')
   displayName: 'creates a whoami Docker for Linux'
   pool:
     name: 'Hosted Ubuntu 1604'
@@ -45,4 +32,23 @@ jobs:
       tags: |
         $(Build.BuildId)
         master
+        latest
+
+- job: 'DockerLinux'
+  condition: eq(variables['build.SourceBranchName'], 'develop')
+  displayName: 'creates a whoami Docker for Linux'
+  pool:
+    name: 'Hosted Ubuntu 1604'
+  steps:
+  - task: Docker@2
+    displayName: 'Build and Push the image'
+    inputs:
+      containerRegistry: 'germanedge-docker.artifactory'
+      repository: '$(dockerId)/$(imageName)'
+      command: 'buildAndPush'
+      Dockerfile: 'linux/Dockerfile'
+      buildContext: '.'
+      tags: |
+        $(Build.BuildId)
+        develop
         latest
